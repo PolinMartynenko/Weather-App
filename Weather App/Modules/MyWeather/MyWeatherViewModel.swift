@@ -12,12 +12,12 @@ protocol MyWeatherViewModel {
     
 }
 
-protocol MyWeatherViewModelDelegate{
+protocol MyWeatherViewModelDelegate : AnyObject{
     func setCirrentTemp(_ temp: Int)
 }
 
 class MyWeatherViewModelImplementattion : MyWeatherViewModel {
-    var delegate : MyWeatherViewModelDelegate?
+   weak var delegate : MyWeatherViewModelDelegate?
     
     func onViewDidLoad() {
         print("View did load")
