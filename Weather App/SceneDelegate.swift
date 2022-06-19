@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: winScene)
        
         
-        let firstVC = MyWeatherViewController()
+        let firstVC = MyWeatherModule.build()
         let tabBarVC = UITabBarController()
         tabBarVC.viewControllers = [firstVC]
         tabBarVC.tabBar.isTranslucent = false
