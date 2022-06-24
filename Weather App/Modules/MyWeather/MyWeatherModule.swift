@@ -10,9 +10,12 @@ import UIKit
 
 struct MyWeatherModule {
     static func build() -> UIViewController {
-        let viewModel = MyWeatherViewModelImplementattion()
+        let model = MyWeatherModelImplementation()
+        let viewModel = MyWeatherViewModelImplementattion(model: model)
+        
         let vc = MyWeatherViewController(viewModel: viewModel)
         viewModel.delegate = vc
+        model.delegate = viewModel
         return vc
     }
 }

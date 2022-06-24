@@ -15,6 +15,7 @@ class MyWeatherViewController: UIViewController {
     let stackInStack = UIStackView()
     let deteilsLable = UILabel()
     let smileLable = UILabel()
+    let tableView = UITableView()
     
     let viewModel: MyWeatherViewModel
     
@@ -54,8 +55,10 @@ class MyWeatherViewController: UIViewController {
         ])
         setUpLable()
         SetUpDeteilStackView()
+        setUpTableView()
         
     }
+    
     
     private func setUpLable(){
 //        listLabel.text = entry.text
@@ -104,10 +107,22 @@ class MyWeatherViewController: UIViewController {
         ])
     }
     
+    private func setUpTableView(){
+        stackView.addSubview(tableView)
+        tableView.layer.cornerRadius = 15
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: segmenredControl.bottomAnchor, constant: 10),
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+//            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
+//        ])
+    }
+    
 }
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
-    func setCirrentTemp(_ temp: Int) {
+    func setCirrentTemp(_ temp: Double) {
         deteilsLable.text = "my weather is \(temp)"
     }
 }
