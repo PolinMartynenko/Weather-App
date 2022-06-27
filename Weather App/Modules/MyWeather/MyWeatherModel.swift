@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol MyWeatherModel {
     func loadCurrentWeather()
@@ -15,11 +16,26 @@ protocol MyWeatherModelDelegate: AnyObject {
     func didLoadCurrentWeather(_ weather: Weather)
 }
 
-class MyWeatherModelImplementation: MyWeatherModel {
+class MyWeatherModelImplementation: NSObject, MyWeatherModel {
     weak var delegate : MyWeatherModelDelegate?
     
+    private let locationManager = CLLocationManager()
+    override init() {
+        super.init()
+        
+        locationManager.delegate = self
+    }
+    
     func loadCurrentWeather() {
-        guard let url = URL(string: "https://api.tomorrow.io/v4/timelines?location=-73.98529171943665,40.75872069597532&fields=temperature,humidity,windSpeed,sunsetTime,sunriseTime&timesteps=1h&units=metric&apikey=JzuMxgKxpVehpHfw78SRGDPB5cDoyAnN") else {
+        
+        guard locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse else {
+            locationManager.requestWhenInUseAuthorization()
+            return
+            
+        }
+        guard let currentLocation = locationManager.location else { return }
+        
+        guard let url = URL(string: "https://api.tomorrow.io/v4/timelines?location=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&fields=temperature,humidity,windSpeed,sunsetTime,sunriseTime&timesteps=1h&units=metric&apikey=JzuMxgKxpVehpHfw78SRGDPB5cDoyAnN") else {
                 return
         }
         
@@ -48,4 +64,15 @@ class MyWeatherModelImplementation: MyWeatherModel {
         task.resume()
     }
 
+}
+
+extension MyWeatherModelImplementation: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways :
+            self.loadCurrentWeather()
+        default:
+            print("Permission error")
+        }
+    }
 }
