@@ -68,7 +68,14 @@ class MyWeatherModelImplementation: NSObject, MyWeatherModel {
     
     func loadCurrentCityName() {
         let geoCoder = CLGeocoder()
+        
+        guard locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse else {
+            locationManager.requestWhenInUseAuthorization()
+            return
+        }
+        
         guard let currentLocation = locationManager.location else { return }
+        
 
         geoCoder.reverseGeocodeLocation(currentLocation, completionHandler: { (placemarks, _) -> Void in
 
@@ -89,6 +96,7 @@ extension MyWeatherModelImplementation: CLLocationManagerDelegate {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways :
             self.loadCurrentWeather()
+            self.loadCurrentCityName()
         default:
             print("Permission error")
         }
