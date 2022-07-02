@@ -37,6 +37,7 @@ class MyWeatherViewController: UIViewController {
         
         viewModel.onViewDidLoad()
         
+        
     }
     
     private func setUpStackView(){
@@ -124,5 +125,8 @@ class MyWeatherViewController: UIViewController {
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCirrentTemp(_ temp: Double) {
         deteilsLable.text = "my weather is \(temp)"
+    }
+    func setCurrentCityName(_ city: String) {
+        smileLable.text = " \(city)"
     }
 }

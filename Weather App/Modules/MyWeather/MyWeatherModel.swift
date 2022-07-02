@@ -10,10 +10,12 @@ import CoreLocation
 
 protocol MyWeatherModel {
     func loadCurrentWeather()
+    func loadCurrentCityName()
 }
 
 protocol MyWeatherModelDelegate: AnyObject {
     func didLoadCurrentWeather(_ weather: Weather)
+    func didLoadCurrentCityName(_ city: String)
 }
 
 class MyWeatherModelImplementation: NSObject, MyWeatherModel {
@@ -63,7 +65,23 @@ class MyWeatherModelImplementation: NSObject, MyWeatherModel {
         
         task.resume()
     }
+    
+    func loadCurrentCityName() {
+        let geoCoder = CLGeocoder()
+        guard let currentLocation = locationManager.location else { return }
 
+        geoCoder.reverseGeocodeLocation(currentLocation, completionHandler: { (placemarks, _) -> Void in
+
+            placemarks?.forEach { (placemark) in
+
+                if let city = placemark.locality {
+                    print(city)
+                    self.delegate?.didLoadCurrentCityName(city)
+                }
+            }
+        })
+    }
+    
 }
 
 extension MyWeatherModelImplementation: CLLocationManagerDelegate {
