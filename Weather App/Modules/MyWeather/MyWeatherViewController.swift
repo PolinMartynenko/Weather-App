@@ -16,6 +16,7 @@ class MyWeatherViewController: UIViewController {
     let deteilsLable = UILabel()
     let smileLable = UILabel()
     let tableView = UITableView()
+
     
     let viewModel: MyWeatherViewModel
     
@@ -34,6 +35,7 @@ class MyWeatherViewController: UIViewController {
         
         self.title = "First"
         setUpStackView()
+        setUpTableView()
         
         viewModel.onViewDidLoad()
         
@@ -56,7 +58,6 @@ class MyWeatherViewController: UIViewController {
         ])
         setUpLable()
         SetUpDeteilStackView()
-        setUpTableView()
         
     }
     
@@ -109,18 +110,35 @@ class MyWeatherViewController: UIViewController {
     }
     
     private func setUpTableView(){
-        stackView.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell" )
+        view.addSubview(tableView)
+        tableView.backgroundColor = .white
         tableView.layer.cornerRadius = 15
         tableView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            tableView.topAnchor.constraint(equalTo: segmenredControl.bottomAnchor, constant: 10),
-//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
-//        ])
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 150),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
+        ])
     }
     
+    
 }
+
+extension MyWeatherViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    // создание ячеек таблицы(источник данных)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel!.text = "\(indexPath.row) Weather is"
+        return cell
+    }
+}
+
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCirrentTemp(_ temp: Double) {
