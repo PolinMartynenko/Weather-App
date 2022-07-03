@@ -12,9 +12,15 @@ struct WeatherResponse: Codable {
     struct WeatherData: Codable {
         struct Timeline: Codable {
             struct Intervals: Codable {
+                
                 let values: Weather
+                
             }
             let intervals: [Intervals]
+            let timestep: String
+            let endTime: String
+            let startTime: String
+            
         }
         let timelines: [Timeline]
     }
@@ -25,4 +31,8 @@ struct WeatherResponse: Codable {
 
 struct Weather: Codable {
     let temperature: Double
+    let humidity: Double
+    let sunriseTime: String
+    let sunsetTime: String
+    let windSpeed: Double
 }
