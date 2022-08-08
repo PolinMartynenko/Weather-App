@@ -111,7 +111,7 @@ class MyWeatherViewController: UIViewController {
     
     private func setUpTableView(){
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell" )
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "cell" )
         view.addSubview(tableView)
         tableView.backgroundColor = .white
         tableView.layer.cornerRadius = 15
@@ -129,12 +129,19 @@ class MyWeatherViewController: UIViewController {
 
 extension MyWeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.intervals.count
     }
     // создание ячеек таблицы(источник данных)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = "\(indexPath.row) Weather is"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? WeatherTableViewCell else {
+            return UITableViewCell()
+        }
+        let weather = viewModel.intervals[indexPath.row]
+        cell.textLabel!.text = "\(weather.values.temperature)"
+        let date = weather.startTime
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
+            cell.dateLable.text = "\(date)"
         return cell
     }
 }
@@ -144,7 +151,13 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCirrentTemp(_ temp: Double) {
         deteilsLable.text = "my weather is \(temp)"
     }
+    
+    func reloadTable() {
+        
+        tableView.reloadData()
+    }
+    
     func setCurrentCityName(_ city: String) {
-        smileLable.text = " \(city)"
+        listLabel.text = " \(city)"
     }
 }

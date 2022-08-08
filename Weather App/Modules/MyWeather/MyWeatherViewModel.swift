@@ -9,17 +9,19 @@ import Foundation
 
 protocol MyWeatherViewModel {
     func onViewDidLoad()
-    
+    var intervals: [WeatherResponse.WeatherData.Timeline.Intervals] {get}
 }
 
 protocol MyWeatherViewModelDelegate : AnyObject{
     func setCirrentTemp(_ temp: Double)
     func setCurrentCityName (_ city: String)
+    func reloadTable()
 }
 
 class MyWeatherViewModelImplementattion : MyWeatherViewModel {
     var model: MyWeatherModel
    weak var delegate : MyWeatherViewModelDelegate?
+    var intervals: [WeatherResponse.WeatherData.Timeline.Intervals] = []
     
     init(model:MyWeatherModel){
         self.model = model
@@ -35,6 +37,12 @@ class MyWeatherViewModelImplementattion : MyWeatherViewModel {
 extension MyWeatherViewModelImplementattion: MyWeatherModelDelegate {
     func didLoadCurrentWeather(_ weather: Weather) {
         delegate?.setCirrentTemp(weather.temperature)
+    }
+    
+    func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals]) {
+        intervals = allWeather
+        delegate?.reloadTable()
+        
     }
     
     func didLoadCurrentCityName(_ city: String) {

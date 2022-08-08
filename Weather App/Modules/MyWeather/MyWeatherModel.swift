@@ -16,6 +16,7 @@ protocol MyWeatherModel {
 protocol MyWeatherModelDelegate: AnyObject {
     func didLoadCurrentWeather(_ weather: Weather)
     func didLoadCurrentCityName(_ city: String)
+    func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals])
 }
 
 class MyWeatherModelImplementation: NSObject, MyWeatherModel {
@@ -56,11 +57,18 @@ class MyWeatherModelImplementation: NSObject, MyWeatherModel {
                             self.delegate?.didLoadCurrentWeather(weather)
                         }
                     }
+                    let intervals = weatherResponse.data.timelines.flatMap { timeline in
+                        return timeline.intervals
+                    }
+                    DispatchQueue.main.async {
+                        self.delegate?.didLoadAllWeather(intervals)
+                    }
                 } catch {
                     print("Error2 \(error)")
                 }
                 
             }
+            
         }
         
         task.resume()

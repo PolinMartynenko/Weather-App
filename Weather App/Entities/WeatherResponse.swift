@@ -12,7 +12,7 @@ struct WeatherResponse: Codable {
     struct WeatherData: Codable {
         struct Timeline: Codable {
             struct Intervals: Codable {
-                
+                let startTime: String
                 let values: Weather
                 
             }
