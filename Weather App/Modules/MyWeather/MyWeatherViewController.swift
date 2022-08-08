@@ -137,11 +137,11 @@ extension MyWeatherViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let weather = viewModel.intervals[indexPath.row]
-        cell.textLabel!.text = "\(weather.values.temperature)"
+        cell.temperatureLabel.text = "\(weather.values.temperature)"
         let date = weather.startTime
-            let dateFormatterGet = DateFormatter()
-            dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
-            cell.dateLable.text = "\(date)"
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
+        cell.dateLabel.text = "\(date)"
         return cell
     }
 }

@@ -10,14 +10,15 @@ import UIKit
 
 class WeatherTableViewCell : UITableViewCell{
     
-    let lableStackView = UIStackView()
-    let smileLable = UILabel()
-    let dateLable = UILabel()
-    
+    let labelStackView = UIStackView()
+    let smileLabel = UILabel()
+    let dateLabel = UILabel()
+    let temperatureLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLableStackView()
+        setUpTemperatureLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -26,34 +27,42 @@ class WeatherTableViewCell : UITableViewCell{
     
     
     private func setUpLableStackView(){
-        lableStackView.axis = .horizontal
-        lableStackView.alignment = .leading
-        lableStackView.spacing = 10
-        contentView.addSubview(lableStackView)
-        lableStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelStackView.axis = .horizontal
+        labelStackView.alignment = .leading
+        labelStackView.spacing = 10
+        contentView.addSubview(labelStackView)
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            lableStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
         
         setUpDateLable()
         setUpSmileLable()
     }
     
+    private func setUpTemperatureLabel(){
+        contentView.addSubview(temperatureLabel)
+        temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            temperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+    }
+    
     private func setUpDateLable(){
-        dateLable.numberOfLines = 0
-        lableStackView.addArrangedSubview(dateLable)
-        dateLable.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.numberOfLines = 0
+        labelStackView.addArrangedSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
 //        NSLayoutConstraint.activate([
 //            dateLable.heightAnchor.constraint(equalTo: lableStackView.heightAnchor, constant: 10)
 //        ])
     }
     
     private func setUpSmileLable(){
-        smileLable.text = "🌈"
-        smileLable.numberOfLines = 0
-        smileLable.font = UIFont.boldSystemFont(ofSize: 17)
-        lableStackView.addArrangedSubview(smileLable)
-        smileLable.translatesAutoresizingMaskIntoConstraints = false
+        smileLabel.text = "🌈"
+        smileLabel.numberOfLines = 0
+        smileLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        labelStackView.addArrangedSubview(smileLabel)
+        smileLabel.translatesAutoresizingMaskIntoConstraints = false
 //        NSLayoutConstraint.activate([
 //            smileLable.heightAnchor.constraint(equalTo: lableStackView.heightAnchor, constant: 10)
 //        ])
