@@ -35,4 +35,5 @@ struct Weather: Codable {
     let sunriseTime: String
     let sunsetTime: String
     let windSpeed: Double
+    let cloudCover: Double
 }

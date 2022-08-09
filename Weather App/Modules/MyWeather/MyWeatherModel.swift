@@ -38,7 +38,7 @@ class MyWeatherModelImplementation: NSObject, MyWeatherModel {
         }
         guard let currentLocation = locationManager.location else { return }
         
-        guard let url = URL(string: "https://api.tomorrow.io/v4/timelines?location=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&fields=temperature,humidity,windSpeed,sunsetTime,sunriseTime&timesteps=1h&units=metric&apikey=JzuMxgKxpVehpHfw78SRGDPB5cDoyAnN") else {
+        guard let url = URL(string: "https://api.tomorrow.io/v4/timelines?location=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&fields=temperature,humidity,windSpeed,sunsetTime,sunriseTime,cloudCover&timesteps=1h&units=metric&apikey=JzuMxgKxpVehpHfw78SRGDPB5cDoyAnN") else {
                 return
         }
         
