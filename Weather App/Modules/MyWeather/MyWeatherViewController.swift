@@ -142,6 +142,16 @@ extension MyWeatherViewController: UITableViewDataSource {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
         cell.dateLabel.text = "\(date)"
+        let cloudCover = weather.values.cloudCover
+        if cloudCover >= 96 {
+            cell.smileLabel.text = "🌧"
+        } else if cloudCover > 80 {
+            cell.smileLabel.text = "☁️"
+        } else if cloudCover > 40 {
+            cell.smileLabel.text = "🌤"
+        } else {
+            cell.smileLabel.text = "☀️"
+        }
         return cell
     }
 }

@@ -60,7 +60,7 @@ class WeatherTableViewCell : UITableViewCell{
     private func setUpSmileLable(){
         smileLabel.text = "🌈"
         smileLabel.numberOfLines = 0
-        smileLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        smileLabel.font = UIFont.boldSystemFont(ofSize: 30)
         labelStackView.addArrangedSubview(smileLabel)
         smileLabel.translatesAutoresizingMaskIntoConstraints = false
 //        NSLayoutConstraint.activate([
