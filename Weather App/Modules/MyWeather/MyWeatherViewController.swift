@@ -14,7 +14,6 @@ class MyWeatherViewController: UIViewController {
     let listLabel = UILabel()
     let stackInStack = UIStackView()
     let deteilsLable = UILabel()
-    let smileLable = UILabel()
     let tableView = UITableView()
 
     
@@ -58,19 +57,14 @@ class MyWeatherViewController: UIViewController {
         ])
         setUpLable()
         SetUpDeteilStackView()
-        
     }
     
-    
     private func setUpLable(){
-//        listLabel.text = entry.text
-        listLabel.text = "kjkjj"
-        listLabel.numberOfLines = 0
-        listLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        listLabel.font = UIFont.boldSystemFont(ofSize: 30)
         stackView.addArrangedSubview(listLabel)
         listLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        listLabel.heightAnchor.constraint(equalToConstant: 25)
+            listLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
@@ -84,28 +78,15 @@ class MyWeatherViewController: UIViewController {
         stackInStack.translatesAutoresizingMaskIntoConstraints = false
         
         setUpLableDatails()
-        setUpSmileLable()
     }
     
     private func setUpLableDatails(){
-        deteilsLable.text = "iiiiooo"
         deteilsLable.numberOfLines = 0
         deteilsLable.font = UIFont.boldSystemFont(ofSize: 17)
         stackInStack.addArrangedSubview(deteilsLable)
         deteilsLable.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
         deteilsLable.heightAnchor.constraint(equalToConstant: 25)
-        ])
-    }
-    
-    private func setUpSmileLable(){
-        smileLable.text = "💖"
-        smileLable.numberOfLines = 0
-        smileLable.font = UIFont.boldSystemFont(ofSize: 17)
-        stackInStack.addArrangedSubview(smileLable)
-        smileLable.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-        smileLable.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     
@@ -131,27 +112,14 @@ extension MyWeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.intervals.count
     }
+    
     // создание ячеек таблицы(источник данных)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? WeatherTableViewCell else {
             return UITableViewCell()
         }
         let weather = viewModel.intervals[indexPath.row]
-        cell.temperatureLabel.text = "\(weather.values.temperature)"
-        let date = weather.startTime
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
-        cell.dateLabel.text = "\(date)"
-        let cloudCover = weather.values.cloudCover
-        if cloudCover >= 96 {
-            cell.smileLabel.text = "🌧"
-        } else if cloudCover > 80 {
-            cell.smileLabel.text = "☁️"
-        } else if cloudCover > 40 {
-            cell.smileLabel.text = "🌤"
-        } else {
-            cell.smileLabel.text = "☀️"
-        }
+        cell.setupCell(weather: weather)
         return cell
     }
 }

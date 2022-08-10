@@ -25,8 +25,25 @@ class WeatherTableViewCell : UITableViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals) {
+        self.temperatureLabel.text = "\(weather.values.temperature)"
+        let date = weather.startTime
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
+        self.dateLabel.text = "\(date)"
+        let cloudCover = weather.values.cloudCover
+        if cloudCover >= 96 {
+            self.smileLabel.text = "🌧"
+        } else if cloudCover > 80 {
+            self.smileLabel.text = "☁️"
+        } else if cloudCover > 40 {
+            self.smileLabel.text = "🌤"
+        } else {
+            self.smileLabel.text = "☀️"
+        }
+    }
     
-    private func setUpLableStackView(){
+    private func setUpLableStackView() {
         labelStackView.axis = .horizontal
         labelStackView.alignment = .leading
         labelStackView.spacing = 10
@@ -40,7 +57,7 @@ class WeatherTableViewCell : UITableViewCell{
         setUpSmileLable()
     }
     
-    private func setUpTemperatureLabel(){
+    private func setUpTemperatureLabel() {
         contentView.addSubview(temperatureLabel)
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -48,7 +65,7 @@ class WeatherTableViewCell : UITableViewCell{
         ])
     }
     
-    private func setUpDateLable(){
+    private func setUpDateLable() {
         dateLabel.numberOfLines = 0
         labelStackView.addArrangedSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +74,7 @@ class WeatherTableViewCell : UITableViewCell{
 //        ])
     }
     
-    private func setUpSmileLable(){
+    private func setUpSmileLable() {
         smileLabel.text = "🌈"
         smileLabel.numberOfLines = 0
         smileLabel.font = UIFont.boldSystemFont(ofSize: 30)
