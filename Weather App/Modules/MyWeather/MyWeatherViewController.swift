@@ -16,12 +16,13 @@ class MyWeatherViewController: UIViewController {
     let deteilsLable = UILabel()
     let tableView = UITableView()
 
-    
     let viewModel: MyWeatherViewModel
     
     init(viewModel: MyWeatherViewModel){
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.title = "Weather"
+        self.tabBarItem.image = UIImage(named: "weather")
     }
     
     required init?(coder: NSCoder) {
@@ -31,8 +32,6 @@ class MyWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
-        
-        self.title = "First"
         setUpStackView()
         setUpTableView()
         

@@ -21,9 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarVC = UITabBarController()
         tabBarVC.viewControllers = [firstVC, WeatherMapViewController()]
         
-        // добавить сюда контроллер с картой
         tabBarVC.tabBar.isTranslucent = false
         tabBarVC.tabBar.backgroundColor = .lightGray
+        tabBarVC.self.title = "Weather"
+        tabBarVC.self.tabBarItem.image = UIImage(named: "weather")
         
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
