@@ -13,8 +13,9 @@ class MyWeatherViewController: UIViewController {
     let stackView = UIStackView()
     let listLabel = UILabel()
     let stackInStack = UIStackView()
-    let deteilsLable = UILabel()
+    let detailsLable = UILabel()
     let tableView = UITableView()
+    let smileCloudCover = UILabel()
 
     let viewModel: MyWeatherViewModel
     
@@ -53,7 +54,8 @@ class MyWeatherViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
         setUpLable()
-        SetUpDeteilStackView()
+        setUpDetailStackView()
+        setUpSmileCloudCover()
     }
     
     private func setUpLable(){
@@ -65,24 +67,32 @@ class MyWeatherViewController: UIViewController {
         ])
     }
     
-    private func SetUpDeteilStackView(){
+    private func setUpSmileCloudCover() {
+        smileCloudCover.text = "💩"
+        smileCloudCover.numberOfLines = 0
+        smileCloudCover.font = UIFont.boldSystemFont(ofSize: 100)
+        stackView.addArrangedSubview(smileCloudCover)
+        smileCloudCover.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    private func setUpDetailStackView(){
         stackInStack.axis = .horizontal
         stackInStack.backgroundColor = .green
         stackInStack.spacing = 10
-//        stackInStack.alignment = .center
         stackInStack.distribution = .fill
         stackView.addArrangedSubview(stackInStack)
         stackInStack.translatesAutoresizingMaskIntoConstraints = false
         
-        setUpLableDatails()
+        setUpLableDetails()
     }
     
-    private func setUpLableDatails(){
-        deteilsLable.font = UIFont.boldSystemFont(ofSize: 45)
-        stackInStack.addArrangedSubview(deteilsLable)
-        deteilsLable.translatesAutoresizingMaskIntoConstraints = false
+    private func setUpLableDetails(){
+        detailsLable.font = UIFont.boldSystemFont(ofSize: 45)
+        stackInStack.addArrangedSubview(detailsLable)
+        detailsLable.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        deteilsLable.heightAnchor.constraint(equalToConstant: 50)
+        detailsLable.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -122,16 +132,28 @@ extension MyWeatherViewController: UITableViewDataSource {
 
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
-    func setCirrentTemp(_ temp: Double) {
-        deteilsLable.text = "\(temp)"
+    func setCurrentTemp(_ temp: Double) {
+        detailsLable.text = "\(temp)"
     }
     
     func reloadTable() {
-        
         tableView.reloadData()
     }
     
     func setCurrentCityName(_ city: String) {
         listLabel.text = " \(city)"
     }
+    
+    func setSmileCurrentWeather(_ cloudCover: Double) {
+        if cloudCover >= 96 {
+            self.smileCloudCover.text = "🌧"
+        } else if cloudCover > 80 {
+            self.smileCloudCover.text = "☁️"
+        } else if cloudCover > 40 {
+            self.smileCloudCover.text = "🌤"
+        } else {
+            self.smileCloudCover.text = "☀️"
+        }
+    }
+    
 }

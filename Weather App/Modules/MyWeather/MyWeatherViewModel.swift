@@ -13,9 +13,10 @@ protocol MyWeatherViewModel {
 }
 
 protocol MyWeatherViewModelDelegate : AnyObject{
-    func setCirrentTemp(_ temp: Double)
+    func setCurrentTemp(_ temp: Double)
     func setCurrentCityName (_ city: String)
     func reloadTable()
+    func setSmileCurrentWeather(_ cloudCover: Double)
 }
 
 class MyWeatherViewModelImplementattion : MyWeatherViewModel {
@@ -30,13 +31,15 @@ class MyWeatherViewModelImplementattion : MyWeatherViewModel {
     func onViewDidLoad() {
         model.loadCurrentWeather()
         model.loadCurrentCityName()
+        
     }
     
     
 }
 extension MyWeatherViewModelImplementattion: MyWeatherModelDelegate {
     func didLoadCurrentWeather(_ weather: Weather) {
-        delegate?.setCirrentTemp(weather.temperature)
+        delegate?.setCurrentTemp(weather.temperature)
+        delegate?.setSmileCurrentWeather(weather.cloudCover)
     }
     
     func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals]) {

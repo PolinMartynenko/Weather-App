@@ -69,9 +69,6 @@ class WeatherTableViewCell : UITableViewCell{
         dateLabel.numberOfLines = 0
         labelStackView.addArrangedSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            dateLable.heightAnchor.constraint(equalTo: lableStackView.heightAnchor, constant: 10)
-//        ])
     }
     
     private func setUpSmileLable() {
@@ -80,9 +77,6 @@ class WeatherTableViewCell : UITableViewCell{
         smileLabel.font = UIFont.boldSystemFont(ofSize: 30)
         labelStackView.addArrangedSubview(smileLabel)
         smileLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            smileLable.heightAnchor.constraint(equalTo: lableStackView.heightAnchor, constant: 10)
-//        ])
     }
     
 }
