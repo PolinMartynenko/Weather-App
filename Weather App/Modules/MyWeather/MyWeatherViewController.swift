@@ -52,8 +52,6 @@ class MyWeatherViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-           
-            
         ])
         setUpLable()
         SetUpDeteilStackView()
@@ -81,12 +79,11 @@ class MyWeatherViewController: UIViewController {
     }
     
     private func setUpLableDatails(){
-        deteilsLable.numberOfLines = 0
-        deteilsLable.font = UIFont.boldSystemFont(ofSize: 17)
+        deteilsLable.font = UIFont.boldSystemFont(ofSize: 45)
         stackInStack.addArrangedSubview(deteilsLable)
         deteilsLable.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        deteilsLable.heightAnchor.constraint(equalToConstant: 25)
+        deteilsLable.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -127,7 +124,7 @@ extension MyWeatherViewController: UITableViewDataSource {
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCirrentTemp(_ temp: Double) {
-        deteilsLable.text = "my weather is \(temp)"
+        deteilsLable.text = "\(temp)"
     }
     
     func reloadTable() {
