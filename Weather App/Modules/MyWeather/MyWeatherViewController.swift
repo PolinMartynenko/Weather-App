@@ -16,6 +16,7 @@ class MyWeatherViewController: UIViewController {
     let detailsLable = UILabel()
     let tableView = UITableView()
     let smileCloudCover = UILabel()
+    let windSpeedLabel = UILabel()
 
     let viewModel: MyWeatherViewModel
     
@@ -34,7 +35,9 @@ class MyWeatherViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         setUpStackView()
+        setUpWindSpeedLabel()
         setUpTableView()
+        
         
         viewModel.onViewDidLoad()
         
@@ -87,6 +90,17 @@ class MyWeatherViewController: UIViewController {
         setUpLableDetails()
     }
     
+    private func setUpWindSpeedLabel(){
+        windSpeedLabel.text = "Wind speed"
+        windSpeedLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        view.addSubview(windSpeedLabel)
+        windSpeedLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            windSpeedLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10 ),
+//            windSpeedLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor)
+        ])
+    }
+    
     private func setUpLableDetails(){
         detailsLable.font = UIFont.boldSystemFont(ofSize: 45)
         stackInStack.addArrangedSubview(detailsLable)
@@ -133,7 +147,7 @@ extension MyWeatherViewController: UITableViewDataSource {
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCurrentTemp(_ temp: Double) {
-        detailsLable.text = "\(temp)"
+        detailsLable.text = "\(Int(temp.rounded()))"
     }
     
     func reloadTable() {
