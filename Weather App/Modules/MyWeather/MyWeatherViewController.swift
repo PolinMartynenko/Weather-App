@@ -18,7 +18,8 @@ class MyWeatherViewController: UIViewController {
     let smileCloudCover = UILabel()
     let windSpeedLabel = UILabel()
     let humidityRing = ALProgressRing()
-
+    let dropImage = UIImageView()
+    
     let viewModel: MyWeatherViewModel
     
     init(viewModel: MyWeatherViewModel){
@@ -87,6 +88,7 @@ class MyWeatherViewController: UIViewController {
         
         setUpSmileCloudCover()
         setUpWindSpeedLabel()
+        setupHumidityRing()
     }
     
     private func setUpSmileCloudCover() {
@@ -101,6 +103,29 @@ class MyWeatherViewController: UIViewController {
         windSpeedLabel.font = UIFont.boldSystemFont(ofSize: 25)
         windSpeedLabel.translatesAutoresizingMaskIntoConstraints = false
         stackInStack.addArrangedSubview(windSpeedLabel)
+    }
+    
+    private func setupHumidityRing(){
+        humidityRing.translatesAutoresizingMaskIntoConstraints = false
+        stackInStack.addArrangedSubview(humidityRing)
+        NSLayoutConstraint.activate([
+            humidityRing.heightAnchor.constraint(equalToConstant: 70),
+            humidityRing.widthAnchor.constraint(equalToConstant: 70)
+        ])
+        
+        humidityRing.startColor = .cyan
+        humidityRing.endColor = .blue
+        setupDropImage()
+    }
+    
+    private func setupDropImage(){
+        dropImage.image = UIImage(named: "drop")
+        dropImage.translatesAutoresizingMaskIntoConstraints = false
+        humidityRing.addSubview(dropImage)
+        NSLayoutConstraint.activate([
+            dropImage.centerYAnchor.constraint(equalTo: humidityRing.centerYAnchor),
+            dropImage.centerXAnchor.constraint(equalTo: humidityRing.centerXAnchor)
+        ])
     }
     
     private func setUpTableView(){
@@ -161,6 +186,10 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
         } else {
             self.smileCloudCover.text = "☀️"
         }
+    }
+    
+    func setCurrentHumidity(_ humidity: Double) {
+        humidityRing.setProgress(Float(humidity)/100, animated: true)
     }
     
 }

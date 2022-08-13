@@ -17,6 +17,7 @@ protocol MyWeatherViewModelDelegate : AnyObject{
     func setCurrentCityName (_ city: String)
     func reloadTable()
     func setSmileCurrentWeather(_ cloudCover: Double)
+    func setCurrentHumidity(_ humidity: Double)
 }
 
 class MyWeatherViewModelImplementattion : MyWeatherViewModel {
@@ -40,6 +41,7 @@ extension MyWeatherViewModelImplementattion: MyWeatherModelDelegate {
     func didLoadCurrentWeather(_ weather: Weather) {
         delegate?.setCurrentTemp(weather.temperature)
         delegate?.setSmileCurrentWeather(weather.cloudCover)
+        delegate?.setCurrentHumidity(weather.humidity)
     }
     
     func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals]) {
@@ -51,6 +53,8 @@ extension MyWeatherViewModelImplementattion: MyWeatherModelDelegate {
     func didLoadCurrentCityName(_ city: String) {
         delegate?.setCurrentCityName(city)
     }
+    
+    
     
     
 }
