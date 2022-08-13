@@ -27,10 +27,16 @@ class WeatherTableViewCell : UITableViewCell{
     
     func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals) {
         self.temperatureLabel.text = "\(weather.values.temperature)"
-        let date = weather.startTime
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "dd.MM.yy HH:mm"
-        self.dateLabel.text = "\(date)"
+        
+        let stringToDateFormatter = DateFormatter()
+        stringToDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        if let date = stringToDateFormatter.date(from: weather.startTime) {
+            let dateToStringFormatter = DateFormatter()
+            dateToStringFormatter.dateFormat = "EEE, hh a"
+            
+            self.dateLabel.text = "\(dateToStringFormatter.string(from: date))"
+        }
+        
         let cloudCover = weather.values.cloudCover
         if cloudCover >= 96 {
             self.smileLabel.text = "🌧"
