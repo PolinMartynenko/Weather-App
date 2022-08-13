@@ -1,0 +1,16 @@
+PODS:
+  - ALProgressView (2.0.0)
+
+DEPENDENCIES:
+  - ALProgressView
+
+SPEC REPOS:
+  trunk:
+    - ALProgressView
+
+SPEC CHECKSUMS:
+  ALProgressView: 547883405970e932d8f1f12b605aa4f6df08f155
+
+PODFILE CHECKSUM: 189b09cd3bbe98d0cd320eec156f64d32c773ddc
+
+COCOAPODS: 1.11.3

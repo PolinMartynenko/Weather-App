@@ -6,17 +6,18 @@
 //
 
 import UIKit
-
+import ALProgressView
 
 class MyWeatherViewController: UIViewController {
     
     let stackView = UIStackView()
-    let listLabel = UILabel()
+    let cityLabel = UILabel()
     let stackInStack = UIStackView()
-    let detailsLable = UILabel()
+    let temperatureLabel = UILabel()
     let tableView = UITableView()
     let smileCloudCover = UILabel()
     let windSpeedLabel = UILabel()
+    let humidityRing = ALProgressRing()
 
     let viewModel: MyWeatherViewModel
     
@@ -35,13 +36,9 @@ class MyWeatherViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         setUpStackView()
-        setUpWindSpeedLabel()
         setUpTableView()
         
-        
         viewModel.onViewDidLoad()
-        
-        
     }
     
     private func setUpStackView(){
@@ -49,76 +46,72 @@ class MyWeatherViewController: UIViewController {
         stackView.backgroundColor = .yellow
         stackView.spacing = 10
         stackView.alignment = .center
-        view.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
-        setUpLable()
+        setupCityLabel()
+        setupTemperatureLabel()
         setUpDetailStackView()
-        setUpSmileCloudCover()
     }
     
-    private func setUpLable(){
-        listLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        stackView.addArrangedSubview(listLabel)
-        listLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func setupCityLabel(){
+        cityLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(cityLabel)
         NSLayoutConstraint.activate([
-            listLabel.heightAnchor.constraint(equalToConstant: 35)
+            cityLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
-    private func setUpSmileCloudCover() {
-        smileCloudCover.text = "💩"
-        smileCloudCover.numberOfLines = 0
-        smileCloudCover.font = UIFont.boldSystemFont(ofSize: 100)
-        stackView.addArrangedSubview(smileCloudCover)
-        smileCloudCover.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func setupTemperatureLabel(){
+        temperatureLabel.font = UIFont.boldSystemFont(ofSize: 55)
+        temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(temperatureLabel)
+        NSLayoutConstraint.activate([
+            temperatureLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     private func setUpDetailStackView(){
         stackInStack.axis = .horizontal
         stackInStack.backgroundColor = .green
         stackInStack.spacing = 10
-        stackInStack.distribution = .fill
-        stackView.addArrangedSubview(stackInStack)
+        stackInStack.alignment = .center
+        stackInStack.distribution = .equalSpacing
         stackInStack.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(stackInStack)
         
-        setUpLableDetails()
+        setUpSmileCloudCover()
+        setUpWindSpeedLabel()
+    }
+    
+    private func setUpSmileCloudCover() {
+        smileCloudCover.text = "💩"
+        smileCloudCover.font = UIFont.boldSystemFont(ofSize: 60)
+        smileCloudCover.translatesAutoresizingMaskIntoConstraints = false
+        stackInStack.addArrangedSubview(smileCloudCover)
     }
     
     private func setUpWindSpeedLabel(){
-        windSpeedLabel.text = "Wind speed"
+        windSpeedLabel.text = "124"
         windSpeedLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        view.addSubview(windSpeedLabel)
         windSpeedLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            windSpeedLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10 ),
-//            windSpeedLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor)
-        ])
-    }
-    
-    private func setUpLableDetails(){
-        detailsLable.font = UIFont.boldSystemFont(ofSize: 45)
-        stackInStack.addArrangedSubview(detailsLable)
-        detailsLable.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-        detailsLable.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        stackInStack.addArrangedSubview(windSpeedLabel)
     }
     
     private func setUpTableView(){
         tableView.dataSource = self
         tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "cell" )
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.backgroundColor = .white
         tableView.layer.cornerRadius = 15
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 150),
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 50),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
@@ -147,7 +140,7 @@ extension MyWeatherViewController: UITableViewDataSource {
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCurrentTemp(_ temp: Double) {
-        detailsLable.text = "\(Int(temp.rounded()))"
+        temperatureLabel.text = "\(Int(temp.rounded()))"
     }
     
     func reloadTable() {
@@ -155,7 +148,7 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
     }
     
     func setCurrentCityName(_ city: String) {
-        listLabel.text = " \(city)"
+        cityLabel.text = " \(city)"
     }
     
     func setSmileCurrentWeather(_ cloudCover: Double) {
