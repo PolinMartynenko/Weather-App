@@ -17,9 +17,8 @@ class MyWeatherViewController: UIViewController {
     let tableView = UITableView()
     let smileCloudCover = UILabel()
     let windSpeedLabel = UILabel()
-    let humidityRing = ALProgressRing()
-    let dropImage = UIImageView()
-    
+    let humidityView = HumidityView()
+   
     let viewModel: MyWeatherViewModel
     
     init(viewModel: MyWeatherViewModel){
@@ -88,7 +87,7 @@ class MyWeatherViewController: UIViewController {
         
         setUpSmileCloudCover()
         setUpWindSpeedLabel()
-        setupHumidityRing()
+        setupHumidityView()
     }
     
     private func setUpSmileCloudCover() {
@@ -105,29 +104,15 @@ class MyWeatherViewController: UIViewController {
         stackInStack.addArrangedSubview(windSpeedLabel)
     }
     
-    private func setupHumidityRing(){
-        humidityRing.translatesAutoresizingMaskIntoConstraints = false
-        stackInStack.addArrangedSubview(humidityRing)
+    private func setupHumidityView(){
+        humidityView.translatesAutoresizingMaskIntoConstraints = false
+        stackInStack.addArrangedSubview(humidityView)
         NSLayoutConstraint.activate([
-            humidityRing.heightAnchor.constraint(equalToConstant: 70),
-            humidityRing.widthAnchor.constraint(equalToConstant: 70)
-        ])
-        
-        humidityRing.startColor = .cyan
-        humidityRing.endColor = .blue
-        setupDropImage()
-    }
-    
-    private func setupDropImage(){
-        dropImage.image = UIImage(named: "drop")
-        dropImage.translatesAutoresizingMaskIntoConstraints = false
-        humidityRing.addSubview(dropImage)
-        NSLayoutConstraint.activate([
-            dropImage.centerYAnchor.constraint(equalTo: humidityRing.centerYAnchor),
-            dropImage.centerXAnchor.constraint(equalTo: humidityRing.centerXAnchor)
+            humidityView.heightAnchor.constraint(equalToConstant: 70),
+            humidityView.widthAnchor.constraint(equalToConstant: 70)
         ])
     }
-    
+
     private func setUpTableView(){
         tableView.dataSource = self
         tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "cell" )
@@ -189,7 +174,7 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
     }
     
     func setCurrentHumidity(_ humidity: Double) {
-        humidityRing.setProgress(Float(humidity)/100, animated: true)
+        humidityView.humidityRing.setProgress(Float(humidity)/100, animated: true)
     }
     
 }
