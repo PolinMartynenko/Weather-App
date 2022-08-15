@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        
         
         let firstVC = MyWeatherModule.build()
+        let secondVC = WeatherMapModule.build()
         let tabBarVC = UITabBarController()
-        tabBarVC.viewControllers = [firstVC, WeatherMapViewController()]
+        tabBarVC.viewControllers = [firstVC, secondVC]
         
         tabBarVC.tabBar.isTranslucent = false
         tabBarVC.tabBar.backgroundColor = .lightGray

@@ -11,10 +11,13 @@ import MapKit
 
 class WeatherMapViewController: UIViewController {
     
+    let viewModel: WeatherMapViewModel
+    
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
     
-    init() {
+    init(viewModel: WeatherMapViewModel){
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.title = "Map"
         self.tabBarItem.image = UIImage(named: "location")
@@ -27,6 +30,8 @@ class WeatherMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
+        
+        viewModel.onViewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,4 +107,9 @@ extension WeatherMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorization()
     }
+    
+}
+
+extension WeatherMapViewController: WeatherMapViewModelDelegate {
+    
 }
