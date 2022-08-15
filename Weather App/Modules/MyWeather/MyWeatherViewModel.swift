@@ -17,6 +17,7 @@ protocol MyWeatherViewModelDelegate : AnyObject{
     func setCurrentCityName (_ city: String)
     func reloadTable()
     func setSmileCurrentWeather(_ cloudCover: Double)
+    func setCurrentWindSpeed(_ windSpeed: Double)
     func setCurrentHumidity(_ humidity: Double)
 }
 
@@ -42,6 +43,7 @@ extension MyWeatherViewModelImplementattion: MyWeatherModelDelegate {
         delegate?.setCurrentTemp(weather.temperature)
         delegate?.setSmileCurrentWeather(weather.cloudCover)
         delegate?.setCurrentHumidity(weather.humidity)
+        delegate?.setCurrentWindSpeed(weather.windSpeed)
     }
     
     func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals]) {

@@ -177,4 +177,8 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
         humidityView.humidityRing.setProgress(Float(humidity)/100, animated: true)
     }
     
+    func setCurrentWindSpeed(_ windSpeed: Double) {
+        windSpeedLabel.text = "\(windSpeed) km/h"
+    }
+    
 }
