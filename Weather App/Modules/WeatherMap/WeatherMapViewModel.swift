@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol WeatherMapViewModel {
-    func onViewDidLoad()
+    func onViewDidAppear()
     
 }
 
 protocol WeatherMapViewModelDelegate: AnyObject {
-    
+    func didUpdateLocations(location: CLLocationCoordinate2D)
 }
 
 class WeatherMapViewModelImplementattion: WeatherMapViewModel {
@@ -24,11 +25,14 @@ class WeatherMapViewModelImplementattion: WeatherMapViewModel {
         self.model = model
     }
     
-    func onViewDidLoad() {
-        
+    func onViewDidAppear() {
+        model.checkLocationEnable()
     }
+    
 }
 
 extension WeatherMapViewModelImplementattion: WeatherMapModelDelegate {
-    
+    func didUpdateLocations(location: CLLocationCoordinate2D) {
+        delegate?.didUpdateLocations(location: location)
+    }
 }

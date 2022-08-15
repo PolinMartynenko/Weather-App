@@ -30,16 +30,15 @@ class WeatherMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        
-        viewModel.onViewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkLocationEnable()
+        viewModel.onViewDidAppear()
     }
     
     private func setupMapView() {
+        mapView.showsUserLocation = true
         view.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -48,36 +47,6 @@ class WeatherMapViewController: UIViewController {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-
-    func checkLocationEnable() {
-        if CLLocationManager.locationServicesEnabled() {
-            setupManager()
-            checkAuthorization()
-        } else {
-            showAlertLocation(title: "You have turn on geolocation service!", message: "Do you want to turn off?", url: URL(string: UIApplication.openSettingsURLString))
-        }
-    }
-    
-    func setupManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    }
-    
-    func checkAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
-            mapView.showsUserLocation = true
-            locationManager.startUpdatingLocation()
-            break
-        case .denied:
-            showAlertLocation(title: "You have prohibited geolocation", message: "Do you want change it?", url: URL(string: UIApplication.openSettingsURLString))
-            break
-        case .restricted:
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        }
     }
     
     func showAlertLocation(title: String, message: String?, url: URL?) {
@@ -96,20 +65,9 @@ class WeatherMapViewController: UIViewController {
     }
     
 }
-
-extension WeatherMapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last?.coordinate{
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000)
-            mapView.setRegion(region, animated: true)
-        }
-    }
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkAuthorization()
-    }
-    
-}
-
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
-    
+    func didUpdateLocations(location: CLLocationCoordinate2D) {
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        mapView.setRegion(region, animated: true)
+    }
 }
