@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol WeatherMapModel {
   func checkLocationEnable()
@@ -14,6 +15,7 @@ protocol WeatherMapModel {
 
 protocol WeatherMapModelDelegate: AnyObject {
     func didUpdateLocations(location: CLLocationCoordinate2D)
+    func errorAlert(title: String, message: String, url: URL?)
     
 }
 
@@ -21,12 +23,13 @@ class WeatherMapModelImplementation: NSObject, WeatherMapModel {
     weak var delegate : WeatherMapModelDelegate?
     let locationManager = CLLocationManager()
     
+    
     func checkLocationEnable() {
         if CLLocationManager.locationServicesEnabled() {
             setupManager()
             checkAuthorization()
         } else {
-//            showAlertLocation(title: "You have turn on geolocation service!", message: "Do you want to turn off?", url: URL(string: UIApplication.openSettingsURLString))
+            delegate?.errorAlert(title: "Your location is disabled", message: "Do you want turn on?", url: URL(string: UIApplication.openSettingsURLString))
         }
     }
     
@@ -42,7 +45,7 @@ class WeatherMapModelImplementation: NSObject, WeatherMapModel {
             locationManager.startUpdatingLocation()
             break
         case .denied:
-//            showAlertLocation(title: "You have prohibited geolocation", message: "Do you want change it?", url: URL(string: UIApplication.openSettingsURLString))
+            delegate?.errorAlert(title: "Your location is disabled", message: "Do you want turn on?", url: URL(string: UIApplication.openSettingsURLString))
             break
         case .restricted:
             break

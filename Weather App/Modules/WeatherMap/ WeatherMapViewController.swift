@@ -66,6 +66,10 @@ class WeatherMapViewController: UIViewController {
     
 }
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
+    func errorAlert(title: String, message: String, url: URL?) {
+        showAlertLocation(title: title, message: message, url: url)
+    }
+    
     func didUpdateLocations(location: CLLocationCoordinate2D) {
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000)
         mapView.setRegion(region, animated: true)

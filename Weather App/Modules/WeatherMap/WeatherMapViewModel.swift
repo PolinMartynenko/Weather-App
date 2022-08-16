@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol WeatherMapViewModel {
     func onViewDidAppear()
@@ -15,6 +16,7 @@ protocol WeatherMapViewModel {
 
 protocol WeatherMapViewModelDelegate: AnyObject {
     func didUpdateLocations(location: CLLocationCoordinate2D)
+    func errorAlert(title: String, message: String, url: URL?)
 }
 
 class WeatherMapViewModelImplementattion: WeatherMapViewModel {
@@ -32,7 +34,12 @@ class WeatherMapViewModelImplementattion: WeatherMapViewModel {
 }
 
 extension WeatherMapViewModelImplementattion: WeatherMapModelDelegate {
+    func errorAlert(title: String, message: String, url: URL?) {
+        delegate?.errorAlert(title: "Your location is disabled", message: "Do you want turn on?", url: URL(string: UIApplication.openSettingsURLString))
+    }
+    
     func didUpdateLocations(location: CLLocationCoordinate2D) {
         delegate?.didUpdateLocations(location: location)
+       
     }
 }
