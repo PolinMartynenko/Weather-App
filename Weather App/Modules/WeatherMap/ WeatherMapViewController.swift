@@ -54,6 +54,9 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
             
             pinOnMap.title = "Tapped at latitude: \(locationCoordinate.latitude), longitude: \(locationCoordinate.longitude)"
             
+            let allAnnotations = self.mapView.annotations
+            self.mapView.removeAnnotations(allAnnotations)
+            
             mapView.addAnnotation(pinOnMap)
             
         }
