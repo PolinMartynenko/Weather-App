@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 import MapKit
 
-class WeatherMapViewController: UIViewController {
+class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let viewModel: WeatherMapViewModel
+    
     
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
@@ -30,11 +31,37 @@ class WeatherMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
+        
+        let oLongTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTapGesture(gestureRecognizer:)))
+        
+        self.mapView.addGestureRecognizer(oLongTapGesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.onViewDidAppear()
+    }
+    
+    @objc func handleLongTapGesture(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state != UIGestureRecognizer.State.ended {
+            let touchLocation = gestureRecognizer.location(in: mapView)
+            let locationCoordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
+            
+            print("Tapped at latitude: \(locationCoordinate.latitude), longitude: \(locationCoordinate.longitude)")
+            
+            let pinOnMap = MKPointAnnotation()
+            pinOnMap.coordinate = locationCoordinate
+            
+            pinOnMap.title = "Tapped at latitude: \(locationCoordinate.latitude), longitude: \(locationCoordinate.longitude)"
+            
+            mapView.addAnnotation(pinOnMap)
+            
+        }
+        
+        
+        if gestureRecognizer.state != UITapGestureRecognizer.State.began {
+            return
+        }
     }
     
     private func setupMapView() {
@@ -74,4 +101,5 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000)
         mapView.setRegion(region, animated: true)
     }
+
 }

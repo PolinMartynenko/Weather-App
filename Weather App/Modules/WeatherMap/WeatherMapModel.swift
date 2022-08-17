@@ -41,7 +41,6 @@ class WeatherMapModelImplementation: NSObject, WeatherMapModel {
     func checkAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways, .authorizedWhenInUse:
-//            mapView.showsUserLocation = true
             locationManager.startUpdatingLocation()
             break
         case .denied:
