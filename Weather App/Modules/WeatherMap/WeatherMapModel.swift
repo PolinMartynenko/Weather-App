@@ -10,7 +10,8 @@ import CoreLocation
 import UIKit
 
 protocol WeatherMapModel {
-  func checkLocationEnable()
+    func checkLocationEnable()
+    func onMapTouch(coordinates: CLLocationCoordinate2D)
 }
 
 protocol WeatherMapModelDelegate: AnyObject {
@@ -20,6 +21,11 @@ protocol WeatherMapModelDelegate: AnyObject {
 }
 
 class WeatherMapModelImplementation: NSObject, WeatherMapModel {
+    
+    func onMapTouch(coordinates: CLLocationCoordinate2D) {
+    
+    }
+    
     weak var delegate : WeatherMapModelDelegate?
     let locationManager = CLLocationManager()
     

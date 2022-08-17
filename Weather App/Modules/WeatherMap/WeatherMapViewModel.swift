@@ -11,7 +11,7 @@ import UIKit
 
 protocol WeatherMapViewModel {
     func onViewDidAppear()
-    
+    func onMapTouch(coordinates: CLLocationCoordinate2D)
 }
 
 protocol WeatherMapViewModelDelegate: AnyObject {
@@ -29,6 +29,10 @@ class WeatherMapViewModelImplementattion: WeatherMapViewModel {
     
     func onViewDidAppear() {
         model.checkLocationEnable()
+    }
+    
+    func onMapTouch(coordinates: CLLocationCoordinate2D) {
+        model.onMapTouch(coordinates: coordinates)
     }
     
 }

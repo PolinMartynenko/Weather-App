@@ -59,6 +59,8 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
             
             mapView.addAnnotation(pinOnMap)
             
+            viewModel.onMapTouch(coordinates: locationCoordinate)
+            
         }
         
         
