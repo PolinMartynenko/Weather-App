@@ -17,11 +17,13 @@ protocol WeatherMapViewModel {
 protocol WeatherMapViewModelDelegate: AnyObject {
     func didUpdateLocations(location: CLLocationCoordinate2D)
     func errorAlert(title: String, message: String, url: URL?)
+    func setCurrentTemp(_ temp: Double)
 }
 
 class WeatherMapViewModelImplementattion: WeatherMapViewModel {
     private let model: WeatherMapModel
     weak var delegate : WeatherMapViewModelDelegate?
+    var intervals: [WeatherResponse.WeatherData.Timeline.Intervals] = []
     
     init(model: WeatherMapModel) {
         self.model = model
@@ -38,6 +40,16 @@ class WeatherMapViewModelImplementattion: WeatherMapViewModel {
 }
 
 extension WeatherMapViewModelImplementattion: WeatherMapModelDelegate {
+    func didLoadCurrentWeather(_ weather: Weather) {
+        delegate?.setCurrentTemp(weather.temperature)
+        
+    }
+    
+    func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals]) {
+        intervals = allWeather
+        
+    }
+    
     func errorAlert(title: String, message: String, url: URL?) {
         delegate?.errorAlert(title: "Your location is disabled", message: "Do you want turn on?", url: URL(string: UIApplication.openSettingsURLString))
     }
