@@ -16,6 +16,8 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
+    let informationLable = WeatherPluginView()
+
     
     init(viewModel: WeatherMapViewModel){
         self.viewModel = viewModel
@@ -31,6 +33,7 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
+        setUpInformationLabel()
         
         let oLongTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTapGesture(gestureRecognizer:)))
         
@@ -40,6 +43,19 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.onViewDidAppear()
+    }
+    
+    private func setUpInformationLabel(){
+        informationLable.backgroundColor = .blue
+        informationLable.layer.cornerRadius = 15
+        informationLable.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(informationLable)
+        NSLayoutConstraint.activate([
+            informationLable.heightAnchor.constraint(equalToConstant: 150),
+            informationLable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor , constant: 10),
+            informationLable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            informationLable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
     }
     
     @objc func handleLongTapGesture(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -98,6 +114,10 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
 }
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
+    func setCurrentTemp(_ temp: Double) {
+       
+    }
+    
     func errorAlert(title: String, message: String, url: URL?) {
         showAlertLocation(title: title, message: message, url: url)
     }

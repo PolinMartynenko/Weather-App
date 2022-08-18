@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE35D41928AE675F00774ED7 /* WeatherPluginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35D41828AE675F00774ED7 /* WeatherPluginView.swift */; };
 		EE4D296428A9280F000524B9 /* HumidityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4D296328A9280F000524B9 /* HumidityView.swift */; };
 		EE4D296628AA3198000524B9 /* WeatherMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4D296528AA3198000524B9 /* WeatherMapViewModel.swift */; };
 		EE4D296828AA31D2000524B9 /* WeatherMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4D296728AA31D2000524B9 /* WeatherMapModel.swift */; };
@@ -29,6 +30,7 @@
 		23EF387E2CD611973C137424 /* Pods-Weather App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather App.release.xcconfig"; path = "Target Support Files/Pods-Weather App/Pods-Weather App.release.xcconfig"; sourceTree = "<group>"; };
 		284D762DA438CAC4C158D45C /* Pods-Weather App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather App.debug.xcconfig"; path = "Target Support Files/Pods-Weather App/Pods-Weather App.debug.xcconfig"; sourceTree = "<group>"; };
 		A61AE9DBB328DD676B727C95 /* Pods_Weather_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE35D41828AE675F00774ED7 /* WeatherPluginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherPluginView.swift; sourceTree = "<group>"; };
 		EE4D296328A9280F000524B9 /* HumidityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityView.swift; sourceTree = "<group>"; };
 		EE4D296528AA3198000524B9 /* WeatherMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMapViewModel.swift; sourceTree = "<group>"; };
 		EE4D296728AA31D2000524B9 /* WeatherMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMapModel.swift; sourceTree = "<group>"; };
@@ -75,6 +77,14 @@
 				A61AE9DBB328DD676B727C95 /* Pods_Weather_App.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE35D41728AE672E00774ED7 /* ViewesForMp */ = {
+			isa = PBXGroup;
+			children = (
+				EE35D41828AE675F00774ED7 /* WeatherPluginView.swift */,
+			);
+			path = ViewesForMp;
 			sourceTree = "<group>";
 		};
 		EE4F2D3728591552000445C2 = {
@@ -129,6 +139,7 @@
 		EEB1DB9728A40A8C00E62923 /* WeatherMap */ = {
 			isa = PBXGroup;
 			children = (
+				EE35D41728AE672E00774ED7 /* ViewesForMp */,
 				EEB1DB9828A40B4400E62923 /*  WeatherMapViewController.swift */,
 				EE4D296528AA3198000524B9 /* WeatherMapViewModel.swift */,
 				EE4D296728AA31D2000524B9 /* WeatherMapModel.swift */,
@@ -280,6 +291,7 @@
 				EED13AE8285F314E004412F8 /* MyWeatherModule.swift in Sources */,
 				EED13AE6285F2FC5004412F8 /* MyWeatherViewModel.swift in Sources */,
 				EE5FAD9A2866444A00E09A02 /* WeatherResponse.swift in Sources */,
+				EE35D41928AE675F00774ED7 /* WeatherPluginView.swift in Sources */,
 				EE4F2D4428591552000445C2 /* AppDelegate.swift in Sources */,
 				EE4F2D4628591552000445C2 /* SceneDelegate.swift in Sources */,
 				EE4D296428A9280F000524B9 /* HumidityView.swift in Sources */,
