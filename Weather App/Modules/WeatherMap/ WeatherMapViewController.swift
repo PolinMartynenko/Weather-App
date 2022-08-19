@@ -10,11 +10,9 @@ import UIKit
 import MapKit
 
 class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
-    
     let viewModel: WeatherMapViewModel
     
     let mapView = MKMapView()
-    let locationManager = CLLocationManager()
     let informationView = WeatherPluginView()
     
     init(viewModel: WeatherMapViewModel){
@@ -31,7 +29,7 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        setUpInformationLabel()
+        setUpInformationView()
         
         let oLongTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTapGesture(gestureRecognizer:)))
         
@@ -42,8 +40,8 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidAppear(animated)
         viewModel.onViewDidAppear()
     }
-    
-    private func setUpInformationLabel(){
+        
+    private func setUpInformationView(){
         informationView.backgroundColor = .lightGray
         informationView.layer.cornerRadius = 15
         informationView.translatesAutoresizingMaskIntoConstraints = false
