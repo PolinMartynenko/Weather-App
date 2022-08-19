@@ -13,6 +13,7 @@ class WeatherPluginView: UIView {
     
     let informationLabel = UILabel()
     
+    
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         setUpInformationLabel()
@@ -21,10 +22,11 @@ class WeatherPluginView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
-    
-    private func setUpInformationLabel(){
-        informationLabel.backgroundColor = .blue
+    private func setUpInformationLabel() {
+        informationLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        informationLabel.backgroundColor = .lightGray
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(informationLabel)
         NSLayoutConstraint.activate([

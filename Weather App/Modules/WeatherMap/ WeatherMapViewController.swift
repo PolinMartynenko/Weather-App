@@ -13,11 +13,9 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let viewModel: WeatherMapViewModel
     
-    
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
-    let informationLable = WeatherPluginView()
-
+    let informationView = WeatherPluginView()
     
     init(viewModel: WeatherMapViewModel){
         self.viewModel = viewModel
@@ -46,15 +44,15 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func setUpInformationLabel(){
-        informationLable.backgroundColor = .blue
-        informationLable.layer.cornerRadius = 15
-        informationLable.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(informationLable)
+        informationView.backgroundColor = .lightGray
+        informationView.layer.cornerRadius = 15
+        informationView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(informationView)
         NSLayoutConstraint.activate([
-            informationLable.heightAnchor.constraint(equalToConstant: 150),
-            informationLable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor , constant: 10),
-            informationLable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            informationLable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            informationView.heightAnchor.constraint(equalToConstant: 150),
+            informationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor , constant: 10),
+            informationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            informationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
     }
     
@@ -114,8 +112,9 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
 }
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
-    func setCurrentTemp(_ temp: Double) {
-       
+    func setCurrentWeather(weather: Weather) {
+        informationView.informationLabel.text = "Temperature is \(weather.temperature)"
+        
     }
     
     func errorAlert(title: String, message: String, url: URL?) {

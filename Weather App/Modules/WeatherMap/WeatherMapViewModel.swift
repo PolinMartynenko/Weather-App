@@ -17,7 +17,7 @@ protocol WeatherMapViewModel {
 protocol WeatherMapViewModelDelegate: AnyObject {
     func didUpdateLocations(location: CLLocationCoordinate2D)
     func errorAlert(title: String, message: String, url: URL?)
-    func setCurrentTemp(_ temp: Double)
+    func setCurrentWeather(weather: Weather)
 }
 
 class WeatherMapViewModelImplementattion: WeatherMapViewModel {
@@ -41,7 +41,7 @@ class WeatherMapViewModelImplementattion: WeatherMapViewModel {
 
 extension WeatherMapViewModelImplementattion: WeatherMapModelDelegate {
     func didLoadCurrentWeather(_ weather: Weather) {
-        delegate?.setCurrentTemp(weather.temperature)
+        delegate?.setCurrentWeather(weather: weather)
         
     }
     
