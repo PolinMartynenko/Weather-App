@@ -111,7 +111,19 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
 }
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
     func setCurrentWeather(weather: Weather) {
-        informationView.informationLabel.text = "Temperature is \(weather.temperature)"
+        informationView.informationLabel.text = "+ \(Int(weather.temperature.rounded()))"
+        
+        if weather.cloudCover >= 96 {
+            self.informationView.emojiWeatherLabel.text = "🌧"
+        } else if weather.cloudCover > 80 {
+            self.informationView.emojiWeatherLabel.text = "☁️"
+        } else if weather.cloudCover > 40 {
+            self.informationView.emojiWeatherLabel.text = "🌤"
+        } else {
+            self.informationView.emojiWeatherLabel.text = "☀️"
+        }
+        
+        informationView.humidityRingOnMap.humidityRing.setProgress(Float(weather.humidity)/100, animated: true)
         
     }
     
@@ -120,7 +132,7 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
     }
     
     func didUpdateLocations(location: CLLocationCoordinate2D) {
-        let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000 )
         mapView.setRegion(region, animated: true)
     }
 
