@@ -25,6 +25,8 @@ protocol WeatherMapModelDelegate: AnyObject {
 
 class WeatherMapModelImplementation: NSObject, WeatherMapModel {
     
+    var oldLocation: CLLocationCoordinate2D?
+    
     func onMapTouch(coordinates: CLLocationCoordinate2D) {
         // 1 создание ссылки
         guard let url = URL(string: "https://api.tomorrow.io/v4/timelines?location=\(coordinates.latitude),\(coordinates.longitude)&fields=temperature,humidity,windSpeed,sunsetTime,sunriseTime,cloudCover&timesteps=1h&units=metric&apikey=JzuMxgKxpVehpHfw78SRGDPB5cDoyAnN")else {
@@ -111,12 +113,19 @@ class WeatherMapModelImplementation: NSObject, WeatherMapModel {
 
 extension WeatherMapModelImplementation: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last?.coordinate {
+        if let location = locations.last?.coordinate, oldLocation != location {
             delegate?.didUpdateLocations(location: location)
+            oldLocation = location
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorization()
+    }
+}
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
 }
