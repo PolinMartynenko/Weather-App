@@ -15,6 +15,7 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     let mapView = MKMapView()
     let informationView = WeatherPluginView()
     
+    
     init(viewModel: WeatherMapViewModel){
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -30,6 +31,8 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         setupMapView()
         setUpInformationView()
+        informationView.collectionView.dataSource = self
+        informationView.collectionView.delegate = self
         
         let oLongTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTapGesture(gestureRecognizer:)))
         
@@ -137,3 +140,24 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
     }
 
 }
+
+extension WeatherMapViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .cyan
+        
+          return cell
+        }
+    
+    }
+
+extension WeatherMapViewController: UICollectionViewDelegate {
+    
+}
+
+    
+    

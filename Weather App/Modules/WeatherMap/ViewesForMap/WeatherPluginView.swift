@@ -73,8 +73,12 @@ class WeatherPluginView: UIView {
     }
     
     private func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         collectionView.backgroundColor = .brown
+        collectionView.collectionViewLayout = layout
         collectionView.layer.cornerRadius = 10
+        collectionView.register(WeatherMapCollectioonViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(collectionView)
         NSLayoutConstraint.activate([
