@@ -152,8 +152,7 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
 
 extension WeatherMapViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-//        return viewModel.intervals.count
+        return viewModel.intervals.count
         
     }
     
@@ -163,13 +162,8 @@ extension WeatherMapViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.backgroundColor = .cyan
-//        let weather = viewModel.intervals[indexPath.row]
-        
-        
-        
-       
-        
-        
+        let weather = viewModel.intervals[indexPath.row]
+        cell.setupCell(weather: weather)
         
         return cell
     }
@@ -180,5 +174,14 @@ extension WeatherMapViewController: UICollectionViewDelegate {
     
 }
 
+extension WeatherMapViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+}
     

@@ -38,16 +38,16 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
     }
     
     private func setupLabelStackView() {
-        labelStackView.axis = .vertical
+        labelStackView.axis = .horizontal
         labelStackView.alignment = .leading
         labelStackView.spacing = 10
         contentView.addSubview(labelStackView)
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
+            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
         
         setupDateLabel()
@@ -55,20 +55,20 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
     }
     
     private func setupDateLabel() {
+        dateLabel.text = "ffo"
         dateLabel.numberOfLines = 0
-        dateLabel.backgroundColor = .purple
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         labelStackView.addArrangedSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
     }
     
     private func setupTemperatureLabel() {
+        temperatureLabel.text = "kkk"
+        temperatureLabel.font = UIFont.boldSystemFont(ofSize: 20)
         temperatureLabel.backgroundColor = .yellow
         labelStackView.addArrangedSubview(temperatureLabel)
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            temperatureLabel.trailingAnchor.constraint(equalTo: labelStackView.trailingAnchor, constant: -2)
-        ])
     }
 }
 

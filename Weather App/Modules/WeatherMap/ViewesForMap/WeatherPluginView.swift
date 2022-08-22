@@ -75,6 +75,7 @@ class WeatherPluginView: UIView {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        collectionView.isPagingEnabled = true
         collectionView.backgroundColor = .brown
         collectionView.collectionViewLayout = layout
         collectionView.layer.cornerRadius = 10
