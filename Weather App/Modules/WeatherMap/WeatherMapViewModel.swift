@@ -12,12 +12,14 @@ import UIKit
 protocol WeatherMapViewModel {
     func onViewDidAppear()
     func onMapTouch(coordinates: CLLocationCoordinate2D)
+    var intervals: [WeatherResponse.WeatherData.Timeline.Intervals] {get}
 }
 
 protocol WeatherMapViewModelDelegate: AnyObject {
     func didUpdateLocations(location: CLLocationCoordinate2D)
     func errorAlert(title: String, message: String, url: URL?)
     func setCurrentWeather(weather: Weather)
+    func reloadCollectionView()
 }
 
 class WeatherMapViewModelImplementattion: WeatherMapViewModel {
@@ -47,6 +49,7 @@ extension WeatherMapViewModelImplementattion: WeatherMapModelDelegate {
     
     func didLoadAllWeather(_ allWeather: [WeatherResponse.WeatherData.Timeline.Intervals]) {
         intervals = allWeather
+        delegate?.reloadCollectionView()
         
     }
     

@@ -34,6 +34,7 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
         informationView.collectionView.dataSource = self
         informationView.collectionView.delegate = self
         
+        
         let oLongTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongTapGesture(gestureRecognizer:)))
         
         self.mapView.addGestureRecognizer(oLongTapGesture)
@@ -112,7 +113,13 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
 }
+
+
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
+    func reloadCollectionView() {
+        informationView.collectionView.reloadData()
+    }
+    
     func setCurrentWeather(weather: Weather) {
         informationView.informationLabel.text = "+ \(Int(weather.temperature.rounded()))"
         
@@ -127,6 +134,8 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
         }
         
         informationView.humidityRingOnMap.humidityRing.setProgress(Float(weather.humidity)/100, animated: true)
+        
+     
         
     }
     
@@ -143,17 +152,29 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
 
 extension WeatherMapViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 10
+//        return viewModel.intervals.count
+        
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .cyan
-        
-          return cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WeatherMapCollectioonViewCell else {
+            return UICollectionViewCell()
         }
-    
+        cell.backgroundColor = .cyan
+//        let weather = viewModel.intervals[indexPath.row]
+        
+        
+        
+       
+        
+        
+        
+        return cell
     }
+   
+}
 
 extension WeatherMapViewController: UICollectionViewDelegate {
     
