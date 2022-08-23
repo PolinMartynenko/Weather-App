@@ -14,6 +14,7 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let mapView = MKMapView()
     let informationView = WeatherPluginView()
+    var topConstraint = NSLayoutConstraint()
     
     
     init(viewModel: WeatherMapViewModel){
@@ -50,11 +51,13 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
         informationView.layer.cornerRadius = 15
         informationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(informationView)
+        let topConstraint = informationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor , constant: -300)
+        self.topConstraint = topConstraint
         NSLayoutConstraint.activate([
             informationView.heightAnchor.constraint(equalToConstant: 150),
-            informationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor , constant: 10),
             informationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            informationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            informationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            topConstraint
         ])
     }
     
@@ -76,7 +79,6 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
             mapView.addAnnotation(pinOnMap)
             
             viewModel.onMapTouch(coordinates: locationCoordinate)
-            
         }
         
         
@@ -118,6 +120,10 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
 extension WeatherMapViewController: WeatherMapViewModelDelegate {
     func reloadCollectionView() {
         informationView.collectionView.reloadData()
+        self.topConstraint.constant = 10
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     func setCurrentWeather(weather: Weather) {

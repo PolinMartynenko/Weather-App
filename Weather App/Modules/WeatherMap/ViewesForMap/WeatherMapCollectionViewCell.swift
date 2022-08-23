@@ -25,7 +25,11 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
     
     
     func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals ) {
-        self.temperatureLabel.text = "\(weather.values.temperature)"
+        let answer = Int(weather.values.temperature.rounded())
+        let plusTemperature = answer > 0
+        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)"
+        self.temperatureLabel.text = trueansw
+        
         
         let stringToDateFormatter = DateFormatter()
         stringToDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -57,18 +61,24 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
     private func setupDateLabel() {
         dateLabel.text = "ffo"
         dateLabel.numberOfLines = 0
-        dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        dateLabel.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.medium)
         labelStackView.addArrangedSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
+        ])
         
     }
     
     private func setupTemperatureLabel() {
         temperatureLabel.text = "kkk"
-        temperatureLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        temperatureLabel.font = UIFont.boldSystemFont(ofSize: 30)
         temperatureLabel.backgroundColor = .yellow
         labelStackView.addArrangedSubview(temperatureLabel)
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            temperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ])
     }
 }
 
