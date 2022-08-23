@@ -150,7 +150,10 @@ extension MyWeatherViewController: UITableViewDataSource {
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCurrentTemp(_ temp: Double) {
-        temperatureLabel.text = "\(Int(temp.rounded()))"
+        let answer = Int(temp.rounded())
+        let plusTemperature = answer > 0
+        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)"
+        self.temperatureLabel.text = trueansw
     }
     
     func reloadTable() {

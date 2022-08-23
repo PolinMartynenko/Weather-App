@@ -26,7 +26,10 @@ class WeatherTableViewCell : UITableViewCell{
     }
     
     func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals) {
-        self.temperatureLabel.text = "\(weather.values.temperature)"
+        let answer = Int(weather.values.temperature.rounded())
+        let plusTemperature = answer > 0
+        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)"
+        self.temperatureLabel.text = trueansw
         
         let stringToDateFormatter = DateFormatter()
         stringToDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -64,6 +67,7 @@ class WeatherTableViewCell : UITableViewCell{
     }
     
     private func setUpTemperatureLabel() {
+        temperatureLabel.font = UIFont.systemFont(ofSize: 30)
         contentView.addSubview(temperatureLabel)
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -72,6 +76,7 @@ class WeatherTableViewCell : UITableViewCell{
     }
     
     private func setUpDateLable() {
+        dateLabel.font = UIFont.monospacedSystemFont(ofSize: 20, weight: UIFont.Weight.medium)
         dateLabel.numberOfLines = 0
         labelStackView.addArrangedSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
