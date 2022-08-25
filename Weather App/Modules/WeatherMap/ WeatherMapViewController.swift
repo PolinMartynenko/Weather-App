@@ -127,7 +127,10 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
     }
     
     func setCurrentWeather(weather: Weather) {
-        informationView.informationLabel.text = "+ \(Int(weather.temperature.rounded()))"
+        let answer = Int(weather.temperature.rounded())
+        let plusTemperature = answer > 0
+        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
+        self.informationView.informationLabel.text = trueansw
         
         if weather.cloudCover >= 96 {
             self.informationView.emojiWeatherLabel.text = "🌧"

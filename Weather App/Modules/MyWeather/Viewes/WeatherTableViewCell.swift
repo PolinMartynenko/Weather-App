@@ -28,7 +28,7 @@ class WeatherTableViewCell : UITableViewCell{
     func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals) {
         let answer = Int(weather.values.temperature.rounded())
         let plusTemperature = answer > 0
-        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)"
+        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
         self.temperatureLabel.text = trueansw
         
         let stringToDateFormatter = DateFormatter()
