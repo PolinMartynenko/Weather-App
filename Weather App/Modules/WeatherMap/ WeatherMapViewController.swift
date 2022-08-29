@@ -47,7 +47,7 @@ class WeatherMapViewController: UIViewController, UIGestureRecognizerDelegate {
     }
         
     private func setUpInformationView(){
-        informationView.backgroundColor = .lightGray
+        informationView.backgroundColor = .darkblueLabel
         informationView.layer.cornerRadius = 15
         informationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(informationView)
@@ -127,10 +127,7 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
     }
     
     func setCurrentWeather(weather: Weather) {
-        let answer = Int(weather.temperature.rounded())
-        let plusTemperature = answer > 0
-        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
-        self.informationView.informationLabel.text = trueansw
+        self.informationView.informationLabel.text = weather.temperature.toTemperature()
         
         let weatherCondition = WeatherCondition(rawValue: Int(weather.cloudCover))
         informationView.emojiWeatherLabel.text = weatherCondition.emoji
@@ -163,7 +160,7 @@ extension WeatherMapViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WeatherMapCollectioonViewCell else {
             return UICollectionViewCell()
         }
-        cell.backgroundColor = .cyan
+        cell.backgroundColor = .lightBlueTabel
         let weather = viewModel.intervals[indexPath.row]
         cell.setupCell(weather: weather)
         

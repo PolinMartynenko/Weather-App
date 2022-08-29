@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.viewControllers = [firstVC, secondVC]
         
         tabBarVC.tabBar.isTranslucent = false
-        tabBarVC.tabBar.backgroundColor = .lightGray
+        tabBarVC.tabBar.backgroundColor = .lightblueTabBar
         tabBarVC.self.title = "Weather"
         tabBarVC.self.tabBarItem.image = UIImage(named: "weather")
         

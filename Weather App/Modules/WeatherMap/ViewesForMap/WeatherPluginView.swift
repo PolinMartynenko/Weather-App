@@ -27,7 +27,6 @@ class WeatherPluginView: UIView {
 
     private func setupInformationStackView() {
         informationStackView.axis = .horizontal
-        informationStackView.backgroundColor = .green
         informationStackView.spacing = 10
         informationStackView.layer.cornerRadius = 15
         informationStackView.alignment = .center
@@ -76,7 +75,6 @@ class WeatherPluginView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         collectionView.isPagingEnabled = true
-        collectionView.backgroundColor = .brown
         collectionView.collectionViewLayout = layout
         collectionView.layer.cornerRadius = 10
         collectionView.register(WeatherMapCollectioonViewCell.self, forCellWithReuseIdentifier: "cell")

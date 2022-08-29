@@ -131,6 +131,7 @@
 			children = (
 				EE5FAD992866444A00E09A02 /* WeatherResponse.swift */,
 				EE6126C028BB999B00351064 /* WeatherCondition.swift */,
+				EE6126BE28B6712E00351064 /* CustomUiColor.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -147,7 +148,6 @@
 		EEB1DB9728A40A8C00E62923 /* WeatherMap */ = {
 			isa = PBXGroup;
 			children = (
-				EE6126BE28B6712E00351064 /* CustomUiColor.swift */,
 				EE35D41728AE672E00774ED7 /* ViewesForMap */,
 				EEB1DB9828A40B4400E62923 /*  WeatherMapViewController.swift */,
 				EE4D296528AA3198000524B9 /* WeatherMapViewModel.swift */,

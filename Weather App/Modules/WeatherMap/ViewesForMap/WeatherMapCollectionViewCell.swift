@@ -62,7 +62,6 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
     private func setupTemperatureLabel() {
         temperatureLabel.text = "kkk"
         temperatureLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        temperatureLabel.backgroundColor = .yellow
         labelStackView.addArrangedSubview(temperatureLabel)
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

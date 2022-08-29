@@ -34,7 +34,7 @@ class MyWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .skyBlue
         setUpStackView()
         setUpTableView()
         
@@ -43,7 +43,6 @@ class MyWeatherViewController: UIViewController {
     
     private func setUpStackView(){
         stackView.axis = .vertical
-        stackView.backgroundColor = .yellow
         stackView.spacing = 10
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +77,6 @@ class MyWeatherViewController: UIViewController {
     
     private func setUpDetailStackView(){
         stackInStack.axis = .horizontal
-        stackInStack.backgroundColor = .green
         stackInStack.spacing = 10
         stackInStack.alignment = .center
         stackInStack.distribution = .equalSpacing
