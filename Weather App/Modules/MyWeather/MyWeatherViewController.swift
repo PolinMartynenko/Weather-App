@@ -150,10 +150,7 @@ extension MyWeatherViewController: UITableViewDataSource {
 
 extension MyWeatherViewController: MyWeatherViewModelDelegate{
     func setCurrentTemp(_ temp: Double) {
-        let answer = Int(temp.rounded())
-        let plusTemperature = answer > 0
-        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
-        self.temperatureLabel.text = trueansw
+        self.temperatureLabel.text = temp.toTemperature()
     }
     
     func reloadTable() {
@@ -165,15 +162,8 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
     }
     
     func setSmileCurrentWeather(_ cloudCover: Double) {
-        if cloudCover >= 96 {
-            self.smileCloudCover.text = "🌧"
-        } else if cloudCover > 80 {
-            self.smileCloudCover.text = "☁️"
-        } else if cloudCover > 40 {
-            self.smileCloudCover.text = "🌤"
-        } else {
-            self.smileCloudCover.text = "☀️"
-        }
+        let weatherCondition = WeatherCondition(rawValue: Int(cloudCover))
+        smileCloudCover.text = weatherCondition.emoji
     }
     
     func setCurrentHumidity(_ humidity: Double) {
@@ -184,4 +174,13 @@ extension MyWeatherViewController: MyWeatherViewModelDelegate{
         windSpeedLabel.text = "\(windSpeed) km/h"
     }
     
+}
+
+extension Double {
+    func toTemperature() -> String {
+        let answer = self.rounded()
+        let plusTemperature = answer > 0
+        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
+        return trueansw
+    }
 }

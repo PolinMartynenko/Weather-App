@@ -38,6 +38,7 @@ class MyWeatherViewModelImplementattion : MyWeatherViewModel {
     
     
 }
+
 extension MyWeatherViewModelImplementattion: MyWeatherModelDelegate {
     func didLoadCurrentWeather(_ weather: Weather) {
         delegate?.setCurrentTemp(weather.temperature)

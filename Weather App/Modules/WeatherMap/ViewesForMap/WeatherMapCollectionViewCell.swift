@@ -25,21 +25,10 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
     
     
     func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals ) {
-        let answer = Int(weather.values.temperature.rounded())
-        let plusTemperature = answer > 0
-        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
-        self.temperatureLabel.text = trueansw
-        
-        
-        let stringToDateFormatter = DateFormatter()
-        stringToDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        if let date = stringToDateFormatter.date(from: weather.startTime) {
-            let dateToStringFormatter = DateFormatter()
-            dateToStringFormatter.dateFormat = "EEE, hh a"
-            
-            self.dateLabel.text = "\(dateToStringFormatter.string(from: date))"
+        self.temperatureLabel.text = weather.values.temperature.toTemperature()
+        self.dateLabel.text = weather.startTime.dateFormatter()
         }
-    }
+
     
     private func setupLabelStackView() {
         labelStackView.axis = .horizontal
@@ -83,3 +72,15 @@ class WeatherMapCollectioonViewCell : UICollectionViewCell {
 }
 
 
+extension String {
+    func dateFormatter() -> String {
+        let stringToDateFormatter = DateFormatter()
+        stringToDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        if let date = stringToDateFormatter.date(from: self) {
+            let dateToStringFormatter = DateFormatter()
+            dateToStringFormatter.dateFormat = "EEE, hh a"
+            return "\(dateToStringFormatter.string(from: date))"
+        }
+        return ""
+    }
+}

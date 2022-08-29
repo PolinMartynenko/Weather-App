@@ -14,6 +14,7 @@ class WeatherTableViewCell : UITableViewCell{
     let smileLabel = UILabel()
     let dateLabel = UILabel()
     let temperatureLabel = UILabel()
+    let temperatureHotLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,30 +27,11 @@ class WeatherTableViewCell : UITableViewCell{
     }
     
     func setupCell(weather: WeatherResponse.WeatherData.Timeline.Intervals) {
-        let answer = Int(weather.values.temperature.rounded())
-        let plusTemperature = answer > 0
-        let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
-        self.temperatureLabel.text = trueansw
+        self.temperatureLabel.text = weather.values.temperature.toTemperature()
+        self.dateLabel.text = weather.startTime.dateFormatter()
         
-        let stringToDateFormatter = DateFormatter()
-        stringToDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        if let date = stringToDateFormatter.date(from: weather.startTime) {
-            let dateToStringFormatter = DateFormatter()
-            dateToStringFormatter.dateFormat = "EEE, hh a"
-            
-            self.dateLabel.text = "\(dateToStringFormatter.string(from: date))"
-        }
-        
-        let cloudCover = weather.values.cloudCover
-        if cloudCover >= 96 {
-            self.smileLabel.text = "🌧"
-        } else if cloudCover > 80 {
-            self.smileLabel.text = "☁️"
-        } else if cloudCover > 40 {
-            self.smileLabel.text = "🌤"
-        } else {
-            self.smileLabel.text = "☀️"
-        }
+        let weatherCondition = WeatherCondition(rawValue: Int(weather.values.cloudCover))
+        smileLabel.text = weatherCondition.emoji
     }
     
     private func setUpLableStackView() {
@@ -82,6 +64,11 @@ class WeatherTableViewCell : UITableViewCell{
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private func setuplettTemperatureHotLabel() {
+        temperatureHotLabel.backgroundColor = .red
+        
+    }
+    
     private func setUpSmileLable() {
         smileLabel.text = "🌈"
         smileLabel.numberOfLines = 0
@@ -90,5 +77,5 @@ class WeatherTableViewCell : UITableViewCell{
         smileLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
-}
+    }
 

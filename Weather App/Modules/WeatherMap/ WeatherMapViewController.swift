@@ -132,15 +132,8 @@ extension WeatherMapViewController: WeatherMapViewModelDelegate {
         let trueansw = "\(plusTemperature ? "+" : "-" )\(answer)°"
         self.informationView.informationLabel.text = trueansw
         
-        if weather.cloudCover >= 96 {
-            self.informationView.emojiWeatherLabel.text = "🌧"
-        } else if weather.cloudCover > 80 {
-            self.informationView.emojiWeatherLabel.text = "☁️"
-        } else if weather.cloudCover > 40 {
-            self.informationView.emojiWeatherLabel.text = "🌤"
-        } else {
-            self.informationView.emojiWeatherLabel.text = "☀️"
-        }
+        let weatherCondition = WeatherCondition(rawValue: Int(weather.cloudCover))
+        informationView.emojiWeatherLabel.text = weatherCondition.emoji
         
         informationView.humidityRingOnMap.humidityRing.setProgress(Float(weather.humidity)/100, animated: true)
         
