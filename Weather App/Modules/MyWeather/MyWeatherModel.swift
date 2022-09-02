@@ -21,10 +21,13 @@ protocol MyWeatherModelDelegate: AnyObject {
 
 class MyWeatherModelImplementation: NSObject, MyWeatherModel {
     weak var delegate : MyWeatherModelDelegate?
-    
+    var networkService: NetworkService
     private let locationManager = CLLocationManager()
-    override init() {
-        super.init()
+    
+     init(service: NetworkService) {
+        self.networkService = service
+         super.init()
+        
         
         locationManager.delegate = self
     }
@@ -37,41 +40,22 @@ class MyWeatherModelImplementation: NSObject, MyWeatherModel {
             
         }
         guard let currentLocation = locationManager.location else { return }
-        
-        guard let url = URL(string: "https://api.tomorrow.io/v4/timelines?location=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&fields=temperature,humidity,windSpeed,sunsetTime,sunriseTime,cloudCover&timesteps=1h&units=metric&apikey=JzuMxgKxpVehpHfw78SRGDPB5cDoyAnN")else {
-                return
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error \(error)")
+        networkService.loadCurrentWeather(coordinate: currentLocation.coordinate) { weatherResponse in
+            guard let weatherResponse = weatherResponse else {
                 return
             }
-            if let data = data {
-                let decoder = JSONDecoder()
-                
-                do {
-                    let weatherResponse =  try decoder.decode(WeatherResponse.self, from: data)
-                    if let weather = weatherResponse.data.timelines.first?.intervals.first?.values {
-                        DispatchQueue.main.async {
-                            self.delegate?.didLoadCurrentWeather(weather)
-                        }
-                    }
-                    let intervals = weatherResponse.data.timelines.flatMap { timeline in
-                        return timeline.intervals
-                    }
-                    DispatchQueue.main.async {
-                        self.delegate?.didLoadAllWeather(intervals)
-                    }
-                } catch {
-                    print("Error2 \(error)")
+            if let weather = weatherResponse.data.timelines.first?.intervals.first?.values {
+                DispatchQueue.main.async {
+                    self.delegate?.didLoadCurrentWeather(weather)
                 }
-                
             }
-            
+            let intervals = weatherResponse.data.timelines.flatMap { timeline in
+                return timeline.intervals
+            }
+            DispatchQueue.main.async {
+                self.delegate?.didLoadAllWeather(intervals)
+            }
         }
-        
-        task.resume()
     }
     
     func loadCurrentCityName() {

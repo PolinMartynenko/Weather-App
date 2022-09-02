@@ -24,6 +24,7 @@
 		EE6126C128BB999B00351064 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6126C028BB999B00351064 /* WeatherCondition.swift */; };
 		EEB1DB9628A15F6D00E62923 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB1DB9528A15F6D00E62923 /* WeatherTableViewCell.swift */; };
 		EEB1DB9928A40B4500E62923 /*  WeatherMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB1DB9828A40B4400E62923 /*  WeatherMapViewController.swift */; };
+		EEB7319928C0B23500A35841 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB7319828C0B23500A35841 /* NetworkService.swift */; };
 		EED13AE6285F2FC5004412F8 /* MyWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED13AE5285F2FC5004412F8 /* MyWeatherViewModel.swift */; };
 		EED13AE8285F314E004412F8 /* MyWeatherModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED13AE7285F314E004412F8 /* MyWeatherModule.swift */; };
 		F777B1B35D3D41A8709C13CE /* Pods_Weather_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61AE9DBB328DD676B727C95 /* Pods_Weather_App.framework */; };
@@ -52,6 +53,7 @@
 		EE6126C028BB999B00351064 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
 		EEB1DB9528A15F6D00E62923 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		EEB1DB9828A40B4400E62923 /*  WeatherMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " WeatherMapViewController.swift"; sourceTree = "<group>"; };
+		EEB7319828C0B23500A35841 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		EED13AE5285F2FC5004412F8 /* MyWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWeatherViewModel.swift; sourceTree = "<group>"; };
 		EED13AE7285F314E004412F8 /* MyWeatherModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWeatherModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 			children = (
 				EE4F2D4328591552000445C2 /* AppDelegate.swift */,
 				EE4F2D4528591552000445C2 /* SceneDelegate.swift */,
+				EEB7319728C0B12500A35841 /* NetworkService */,
 				EE5FAD982866440000E09A02 /* Entities */,
 				EED13AE3285F2F23004412F8 /* Modules */,
 				EE4F2D4C28591555000445C2 /* Assets.xcassets */,
@@ -155,6 +158,14 @@
 				EE4D296928AA31EF000524B9 /* WeatherMapModule.swift */,
 			);
 			path = WeatherMap;
+			sourceTree = "<group>";
+		};
+		EEB7319728C0B12500A35841 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				EEB7319828C0B23500A35841 /* NetworkService.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		EED13AE3285F2F23004412F8 /* Modules */ = {
@@ -296,6 +307,7 @@
 				EE4D296628AA3198000524B9 /* WeatherMapViewModel.swift in Sources */,
 				EE4D296A28AA31EF000524B9 /* WeatherMapModule.swift in Sources */,
 				EE4F2D4828591552000445C2 /* MyWeatherViewController.swift in Sources */,
+				EEB7319928C0B23500A35841 /* NetworkService.swift in Sources */,
 				EE511D6728B11FEC009AB954 /* WeatherMapCollectionViewCell.swift in Sources */,
 				EE4D296828AA31D2000524B9 /* WeatherMapModel.swift in Sources */,
 				EE6126BF28B6712E00351064 /* CustomUiColor.swift in Sources */,
