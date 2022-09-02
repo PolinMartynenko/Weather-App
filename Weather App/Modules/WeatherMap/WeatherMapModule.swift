@@ -10,7 +10,8 @@ import UIKit
 
 struct WeatherMapModule {
     static func build() -> UIViewController {
-        let model = WeatherMapModelImplementation()
+        let service = NetworkServiceImplementation()
+        let model = WeatherMapModelImplementation(service: service)
         let viewModel = WeatherMapViewModelImplementattion(model: model)
         
         let vc = WeatherMapViewController(viewModel: viewModel)
